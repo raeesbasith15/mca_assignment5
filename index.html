@@ -1,0 +1,301 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String and Math Functions</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>JavaScript Functions</h1>
+        <p>String Functions and Math Functions</p>
+    </header>
+
+    <main class="container">
+
+        <!-- STRING FUNCTIONS -->
+        <section class="card">
+            <h2>String Functions</h2>
+
+            <label for="textInput">Enter a string:</label>
+            <textarea id="textInput" rows="3"
+                placeholder="Enter your text here..."></textarea>
+
+            <label for="wordInput">Enter a word to search or replace:</label>
+            <input type="text" id="wordInput" placeholder="Enter word">
+
+            <label for="replaceInput">Replacement word:</label>
+            <input type="text" id="replaceInput"
+                placeholder="Enter replacement word">
+
+            <label for="startInput">Start index:</label>
+            <input type="number" id="startInput" value="0">
+
+            <label for="endInput">End index:</label>
+            <input type="number" id="endInput" value="5">
+
+            <div class="button-grid">
+                <button onclick="stringLength()">String Length</button>
+                <button onclick="firstOccurrence()">First Occurrence</button>
+                <button onclick="lastOccurrence()">Last Occurrence</button>
+                <button onclick="searchWord()">Search Word</button>
+                <button onclick="sliceString()">Slice</button>
+                <button onclick="substringString()">Substring</button>
+                <button onclick="substrString()">Substr</button>
+                <button onclick="replaceWord()">Replace Word</button>
+                <button onclick="uppercase()">Uppercase</button>
+                <button onclick="lowercase()">Lowercase</button>
+            </div>
+
+            <div class="result">
+                <h3>String Result</h3>
+                <p id="stringResult">Results will appear here.</p>
+            </div>
+        </section>
+
+
+        <!-- MATH FUNCTIONS -->
+        <section class="card">
+            <h2>Math Functions</h2>
+
+            <label for="num1">First number:</label>
+            <input type="number" id="num1" value="16" step="any">
+
+            <label for="num2">Second number:</label>
+            <input type="number" id="num2" value="3" step="any">
+
+            <label for="angle">Angle in degrees:</label>
+            <input type="number" id="angle" value="30" step="any">
+
+            <label for="randomMax">Random number upper limit:</label>
+            <input type="number" id="randomMax" value="100" min="1">
+
+            <div class="button-grid">
+                <button onclick="power()">Power</button>
+                <button onclick="squareRoot()">Square Root</button>
+                <button onclick="roundNumber()">Round</button>
+                <button onclick="ceilNumber()">Ceiling</button>
+                <button onclick="floorNumber()">Floor</button>
+                <button onclick="absoluteValue()">Absolute Value</button>
+                <button onclick="sine()">Sine</button>
+                <button onclick="cosine()">Cosine</button>
+                <button onclick="minimum()">Minimum</button>
+                <button onclick="maximum()">Maximum</button>
+                <button onclick="randomNumber()">Random Number</button>
+            </div>
+
+            <div class="result">
+                <h3>Math Result</h3>
+                <p id="mathResult">Results will appear here.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 JavaScript Functions Demonstration</p>
+    </footer>
+
+    <script>
+        // Helper functions
+        function getText() {
+            return document.getElementById("textInput").value;
+        }
+
+        function showStringResult(message) {
+            document.getElementById("stringResult").textContent = message;
+        }
+
+        function showMathResult(message) {
+            document.getElementById("mathResult").textContent = message;
+        }
+
+        function getNumber(id) {
+            return Number(document.getElementById(id).value);
+        }
+
+
+        // STRING FUNCTIONS
+
+        function stringLength() {
+            let text = getText();
+            showStringResult("Length: " + text.length);
+        }
+
+        function firstOccurrence() {
+            let text = getText();
+            let word = document.getElementById("wordInput").value;
+            let position = text.indexOf(word);
+
+            showStringResult(
+                word === "" ? "Please enter a word." :
+                "First occurrence index: " + position
+            );
+        }
+
+        function lastOccurrence() {
+            let text = getText();
+            let word = document.getElementById("wordInput").value;
+            let position = text.lastIndexOf(word);
+
+            showStringResult(
+                word === "" ? "Please enter a word." :
+                "Last occurrence index: " + position
+            );
+        }
+
+        function searchWord() {
+            let text = getText();
+            let word = document.getElementById("wordInput").value;
+
+            if (word === "") {
+                showStringResult("Please enter a word to search.");
+                return;
+            }
+
+            let position = text.search(
+                new RegExp(word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i")
+            );
+
+            showStringResult(
+                position === -1
+                    ? "Word not found."
+                    : "Word found at index: " + position
+            );
+        }
+
+        function sliceString() {
+            let text = getText();
+            let start = getNumber("startInput");
+            let end = getNumber("endInput");
+
+            showStringResult("Slice result: " + text.slice(start, end));
+        }
+
+        function substringString() {
+            let text = getText();
+            let start = getNumber("startInput");
+            let end = getNumber("endInput");
+
+            showStringResult(
+                "Substring result: " + text.substring(start, end)
+            );
+        }
+
+        function substrString() {
+            let text = getText();
+            let start = getNumber("startInput");
+            let end = getNumber("endInput");
+
+            showStringResult(
+                "Substr result: " + text.substr(start, end)
+            );
+        }
+
+        function replaceWord() {
+            let text = getText();
+            let word = document.getElementById("wordInput").value;
+            let replacement = document.getElementById("replaceInput").value;
+
+            if (word === "") {
+                showStringResult("Please enter a word to replace.");
+                return;
+            }
+
+            showStringResult(
+                "Replace result: " + text.replace(word, replacement)
+            );
+        }
+
+        function uppercase() {
+            showStringResult("Uppercase: " + getText().toUpperCase());
+        }
+
+        function lowercase() {
+            showStringResult("Lowercase: " + getText().toLowerCase());
+        }
+
+
+        // MATH FUNCTIONS
+
+        function power() {
+            let a = getNumber("num1");
+            let b = getNumber("num2");
+
+            showMathResult("Power: " + Math.pow(a, b));
+        }
+
+        function squareRoot() {
+            let n = getNumber("num1");
+
+            showMathResult(
+                n < 0
+                    ? "Square root of a negative number is not a real number."
+                    : "Square root: " + Math.sqrt(n)
+            );
+        }
+
+        function roundNumber() {
+            showMathResult("Round: " + Math.round(getNumber("num1")));
+        }
+
+        function ceilNumber() {
+            showMathResult("Ceiling: " + Math.ceil(getNumber("num1")));
+        }
+
+        function floorNumber() {
+            showMathResult("Floor: " + Math.floor(getNumber("num1")));
+        }
+
+        function absoluteValue() {
+            showMathResult("Absolute value: " + Math.abs(getNumber("num1")));
+        }
+
+        function sine() {
+            let angle = getNumber("angle");
+            let radians = angle * Math.PI / 180;
+
+            showMathResult("Sine: " + Math.sin(radians));
+        }
+
+        function cosine() {
+            let angle = getNumber("angle");
+            let radians = angle * Math.PI / 180;
+
+            showMathResult("Cosine: " + Math.cos(radians));
+        }
+
+        function minimum() {
+            let a = getNumber("num1");
+            let b = getNumber("num2");
+
+            showMathResult("Minimum: " + Math.min(a, b));
+        }
+
+        function maximum() {
+            let a = getNumber("num1");
+            let b = getNumber("num2");
+
+            showMathResult("Maximum: " + Math.max(a, b));
+        }
+
+        function randomNumber() {
+            let max = getNumber("randomMax");
+
+            if (!Number.isInteger(max) || max < 1) {
+                showMathResult("Enter a positive whole number as the limit.");
+                return;
+            }
+
+            showMathResult(
+                "Random number (1 to " + max + "): " +
+                (Math.floor(Math.random() * max) + 1)
+            );
+        }
+    </script>
+
+</body>
+</html>
